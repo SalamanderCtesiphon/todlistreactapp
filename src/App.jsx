@@ -3,11 +3,12 @@ import './App.css'
 
 function App() {
   const [counter, setCounter] = useState(0)
-  const [todo, setTodo] = useState('test to do')
+  const [text, setText] = useState('test to do')
   const [todos, setTodos] = useState([])
 
   const addTodo = () => {
-    setTodos([...todos, todo])
+    setTodos([...todos, text])
+    setText("")
   }
 
   useEffect(() => {
@@ -32,10 +33,21 @@ function App() {
         type="text" 
         name="todo" 
         id="todo"
-        value={todo}
-        onChange={(e) => setTodo(e.target.value)} 
+        value={text}
+        onChange={(e) => setText(e.target.value)} 
       />
       <button onClick={addTodo}>Add To Do</button>
+      <div className="todoList">
+        <ul>
+          {todos.map((todo) => {
+            return (
+              <li key={todo}>
+                {todo}
+              </li>
+            )
+          })}
+        </ul>
+      </div>
     </>
   )
 }
