@@ -2,26 +2,23 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
-  const [counter, setCounter] = useState(0)
   const [text, setText] = useState('test to do')
-  const [todo, setTodo] = useState({
-    id: 1,
-    text: text
-  })
+  const [todo, setTodo] = useState()
   const [todos, setTodos] = useState([])
 
-  const addTodo = (text) => {
-    const newTodo = setTodo({
-      id: Math.floor(Math.random() * 10000),
-      text: text
-    }) 
-    setTodos([...todos, newTodo])
-    setText("")
+  const addTodo = () => {
+    setTodos([...todos, todo])
+    setText('')
+    console.log(todo)
   }
 
   const delTodo = (todo) => {
     setTodos(todos.filter(todo))
   }
+
+  /* function delJob(id)  {
+    setJobsArray(jobsArray.filter((job) => job.id !== id))
+  } */
 
   useEffect(() => {
     console.log(todos)
@@ -29,6 +26,7 @@ function App() {
 
   return (
     <>
+      <h1>The To Do List</h1>
       <label htmlFor="todo">Enter a to do:</label>
       <input 
         type="text" 
