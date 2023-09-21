@@ -4,22 +4,24 @@ import './App.css'
 function App() {
   const [counter, setCounter] = useState(0)
   const [text, setText] = useState('test to do')
+  const [todo, setTodo] = useState({
+    id: 1,
+    text: text
+  })
   const [todos, setTodos] = useState([])
 
-  const addTodo = () => {
-    setTodos([...todos, text])
+  const addTodo = (text) => {
+    const newTodo = setTodo({
+      id: Math.floor(Math.random() * 10000),
+      text: text
+    }) 
+    setTodos([...todos, newTodo])
     setText("")
   }
 
-  useEffect(() => {
-    const key = setInterval(() => {
-      setCounter(count => count + 1)
-    }, 1000)
-
-    return () => {
-      clearInterval(key)
-    }
-  }, [])
+  const delTodo = (todo) => {
+    setTodos(todos.filter(todo))
+  }
 
   useEffect(() => {
     console.log(todos)
@@ -27,7 +29,6 @@ function App() {
 
   return (
     <>
-      <p>{counter} seconds have passed</p>
       <label htmlFor="todo">Enter a to do:</label>
       <input 
         type="text" 
@@ -43,6 +44,8 @@ function App() {
             return (
               <li key={todo}>
                 {todo}
+
+                <button onClick={() => delTodo(todo)}>delete</button>
               </li>
             )
           })}
